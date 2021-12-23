@@ -383,22 +383,22 @@ npm_install_node(){
 apt_configure_mongo(){
     local deb_keyserver="hkp://keyserver.ubuntu.com:80"
     local deb_key="9DA31620334BD75D9DCB49F368818C72E52529D4"
-    local ubuntu_mongo_url="deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse"
-    local debian_mongo_url="deb http://repo.mongodb.org/apt/debian stretch/mongodb-org/4.0 main"
+    local ubuntu_mongo_url="deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.4 multiverse"
+    local debian_mongo_url="deb http://repo.mongodb.org/apt/debian stretch/mongodb-org/4.4 main"
 
     if [ "$distro" == "ubuntu" ]; then
         apt-key adv --keyserver $deb_keyserver --recv $deb_key
-        echo $ubuntu_mongo_url | tee /etc/apt/sources.list.d/mongodb-org-4.0.list
+        echo $ubuntu_mongo_url | tee /etc/apt/sources.list.d/mongodb-org-4.4.list
     elif [ "$distro" == "debian" ]; then
         apt-get install -y dirmngr libcap2-bin
         apt-key adv --keyserver $deb_keyserver --recv $deb_key
-        echo $debian_mongo_url | tee /etc/apt/sources.list.d/mongodb-org-4.0.list
+        echo $debian_mongo_url | tee /etc/apt/sources.list.d/mongodb-org-4.4.list
     fi
 }
 
 yum_configure_mongo(){
-    local yum_mongo_url="https://repo.mongodb.org/yum/redhat/7/mongodb-org/4.0/x86_64/"
-    local yum_key="https://www.mongodb.org/static/pgp/server-4.0.asc"
+    local yum_mongo_url="https://repo.mongodb.org/yum/redhat/7/mongodb-org/4.4/x86_64/"
+    local yum_key="https://www.mongodb.org/static/pgp/server-4.4.asc"
 [mongodb-org-4.4]
 name=MongoDB Repository
 baseurl=$yum_mongo_url
@@ -411,13 +411,13 @@ EOF
 apt_install_mongo(){
     apt-get update
     if [ -z "${MONGO_VERSION}" ]; then
-        apt-get install -y mongodb-org=4.0
+        apt-get install -y mongodb-org=4.4
     else
-        apt-get install -y mongodb-org=4.0 \
-        mongodb-org-server=4.0 \
-        mongodb-org-shell=4.0 \
-        mongodb-org-mongos=4.0 \
-        mongodb-org-tools=4.0
+        apt-get install -y mongodb-org=$MONGO_VERSION \
+        mongodb-org-server=$MONGO_VERSION \
+        mongodb-org-shell=$MONGO_VERSION \
+        mongodb-org-mongos=$MONGO_VERSION \
+        mongodb-org-tools=$MONGO_VERSION
         echo "mongodb-org hold" | sudo dpkg --set-selections
         echo "mongodb-org-server hold" | sudo dpkg --set-selections
         echo "mongodb-org-shell hold" | sudo dpkg --set-selections
