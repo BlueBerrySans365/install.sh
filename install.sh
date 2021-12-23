@@ -24,5 +24,7 @@ if [ ! -f "$ROCKETCHATCTL_DIRECTORY/rocketchatctl" ]; then
 else
     echo "You already have rocketchatctl installed, use rocketchatctl to manage your RocketChat installation."
     echo "Run rocketchatctl help for more info."
+    echo ""
+    echo "If you want to remove rocketchat server use another script."
     exit 1
 fi
