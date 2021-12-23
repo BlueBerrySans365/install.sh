@@ -397,9 +397,8 @@ apt_configure_mongo(){
 }
 
 yum_configure_mongo(){
-    local yum_mongo_url="https://repo.mongodb.org/yum/redhat/7/mongodb-org/4.4/x86_64/"
-    local yum_key="https://www.mongodb.org/static/pgp/server-4.4.asc"
-    cat << EOF | tee -a /etc/yum.repos.d/mongodb-org-4.4.repo
+    local yum_mongo_url="https://repo.mongodb.org/yum/redhat/7/mongodb-org/4.0/x86_64/"
+    local yum_key="https://www.mongodb.org/static/pgp/server-4.0.asc"
 [mongodb-org-4.4]
 name=MongoDB Repository
 baseurl=$yum_mongo_url
@@ -412,13 +411,13 @@ EOF
 apt_install_mongo(){
     apt-get update
     if [ -z "${MONGO_VERSION}" ]; then
-        apt-get install -y mongodb-org=4.4
+        apt-get install -y mongodb-org=4.0
     else
-        apt-get install -y mongodb-org=4.4 \
-        mongodb-org-server=4.4 \
-        mongodb-org-shell=4.4 \
-        mongodb-org-mongos=4.4 \
-        mongodb-org-tools=4.4
+        apt-get install -y mongodb-org=4.0 \
+        mongodb-org-server=4.0 \
+        mongodb-org-shell=4.0 \
+        mongodb-org-mongos=4.0 \
+        mongodb-org-tools=4.0
         echo "mongodb-org hold" | sudo dpkg --set-selections
         echo "mongodb-org-server hold" | sudo dpkg --set-selections
         echo "mongodb-org-shell hold" | sudo dpkg --set-selections
